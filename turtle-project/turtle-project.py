@@ -3,13 +3,13 @@ import random
 colormode(255)
 speed(100)
 setup(width = 1300, height = 700, startx = 0, starty = 0)
-r = 0
 sun = Turtle()
-
+colors = [(240,248,255),(255,211,155),(0,255,255),(178,34,34),(255,255,224),(255,228,225)]
+          
 #sky
 bgcolor(000,000,255)
 #grass
-def draw_tree():
+def draw_tree(leaves):
     penup()
     sety(-150)
     setx(random.randrange(-800,800))
@@ -32,7 +32,7 @@ def draw_tree():
     fd(50)
     
     #leaves
-    color(40,130,50)
+    color(leaves)
     begin_fill()
     rt(90)
     fd(15)
@@ -45,6 +45,7 @@ def draw_tree():
     end_fill()
     
 def draw_ground():
+    color(
     penup()
     sety(-150)
     setx(700)
@@ -60,37 +61,40 @@ def draw_ground():
     fd(400)
     end_fill()
 
-def draw_sun(r):
+def draw_sun():
     sun.penup()
     sun.goto(350,250)
     sun.pendown()
     sun.begin_fill()
-    sun.color(240,242,90)
-    sun.circle(50 + r)
+    
+    if bgcolor() == (00,00,00):
+        sun.color(255,255,255)
+    else:
+        sun.color(240,242,90)
+    sun.circle(50)
     sun.end_fill()
-    r += 5
-    
 
-
-for i in range(10):
-    draw_tree()
-
-while True:
-    draw_sun(r)
-
-    
-draw_ground()
-penup()
-goto(0,0)
-
-def k(x,y):
+def change_sky(x,y):
     if y > -150:
         if bgcolor() == (00,00,00):
             bgcolor(000,000,255)
         else:
             bgcolor(00,00,00)
 
-onscreenclick(k)
+draw_ground()
+count = 0
+while count < 5:
+    onscreenclick(change_sky)
+    for i in range(10):
+        draw_tree(colors[random.randrange(0,5)])
+    draw_sun()
+    count += 1
+
+
+penup()
+goto(0,0)
+
+
 
 listen()
 mainloop()
