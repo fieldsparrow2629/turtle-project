@@ -1,14 +1,14 @@
 from turtle import *
 import random
+
+#setup
 colormode(255)
 speed(100)
 setup(width = 1300, height = 700, startx = 0, starty = 0)
 sun = Turtle()
 colors = [(240,248,255),(255,211,155),(0,255,255),(178,34,34),(255,255,224),(255,228,225)]
-          
-#sky
 bgcolor(000,000,255)
-#grass
+
 def draw_tree(leaves):
     penup()
     sety(-150)
@@ -45,7 +45,7 @@ def draw_tree(leaves):
     end_fill()
     
 def draw_ground():
-    color(
+    color(65,30,30)
     penup()
     sety(-150)
     setx(700)
