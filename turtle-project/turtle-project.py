@@ -3,16 +3,25 @@ import random
 
 #setup
 colormode(255)
-speed(100)
 setup(width = 1300, height = 700, startx = 0, starty = 0)
-sun = Turtle()
-colors = [(240,248,255),(255,211,155),(0,255,255),(178,34,34),(255,255,224),(255,228,225)]
+colors = [(144, 170, 6),(162, 163, 3),(212, 103, 25),(218, 120, 27)]
 bgcolor(000,000,255)
 
+#create other turtles
+cld = Turtle()
+sun = Turtle()
+grs = Turtle()
+
+speed(0)
+cld.speed(0)
+sun.speed(0)
+grs.speed(0)
+
+
+#functions
 def draw_tree(leaves):
     penup()
-    sety(-150)
-    setx(random.randrange(-800,800))
+    goto(random.randrange(-650,650),random.randrange(-175,-150))
     setheading(90)
 
     #trunk
@@ -44,19 +53,44 @@ def draw_tree(leaves):
     fd(40)
     end_fill()
     
+def draw_grass():
+    grs.penup()
+    grs.goto(random.randrange(-650,650),random.randrange(-300,-160))
+    grs.pendown()
+    grs.color("green")
+             
+    x = 0
+    for i in range(5):
+        grs.setheading(15 + x)
+        grs.fd(15)
+        grs.rt(180)
+        grs.fd(15)
+        x += 30
+             
+def make_forest():
+    count = 0
+    while count < 5:
+        for i in range(5):
+            draw_tree(colors[random.randrange(0,3)])
+            draw_grass()
+            draw_grass()
+            
+        count += 1
+    draw_sun()
+    
 def draw_ground():
-    color(65,30,30)
+    color(77, 158, 58)
     penup()
     sety(-150)
     setx(700)
     setheading(180)
     pendown()
     begin_fill()
-    fd(1400)
+    fd(2000)
     rt(-90)
     fd(400)
     rt(-90)
-    fd(1400)
+    fd(2300)
     rt(-90)
     fd(400)
     end_fill()
@@ -66,13 +100,29 @@ def draw_sun():
     sun.goto(350,250)
     sun.pendown()
     sun.begin_fill()
-    
+
+    #draws a moon if its night
+    #draws a sun if its day
     if bgcolor() == (00,00,00):
-        sun.color(255,255,255)
+        sun.color(254, 252, 215)
     else:
         sun.color(240,242,90)
-    sun.circle(50)
+    sun.circle(75)
     sun.end_fill()
+
+def draw_cloud():
+    cld.penup()
+    cld.color(255,255,255)
+    cld.goto(random.randrange(-700,700),random.randrange(0,300))
+    size = 15
+    
+    for i in range(5):
+        cld.pendown()
+        cld.begin_fill()
+        cld.circle(size)
+        cld.rt(72)
+        cld.end_fill()
+        size += 2.5
 
 def change_sky(x,y):
     if y > -150:
@@ -80,21 +130,14 @@ def change_sky(x,y):
             bgcolor(000,000,255)
         else:
             bgcolor(00,00,00)
-
-draw_ground()
-count = 0
-while count < 5:
-    onscreenclick(change_sky)
-    for i in range(10):
-        draw_tree(colors[random.randrange(0,5)])
     draw_sun()
-    count += 1
 
+#draw picture
+draw_ground()
+make_forest()
 
-penup()
-goto(0,0)
-
-
+onkey(draw_cloud,"Up")
+onscreenclick(change_sky)
 
 listen()
 mainloop()
