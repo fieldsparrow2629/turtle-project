@@ -3,8 +3,8 @@ import random
 
 #setup
 colormode(255)
-speed(100)
 setup(width = 1300, height = 700, startx = 0, starty = 0)
+<<<<<<< HEAD
 
 #create other turtles
 sun = Turtle()
@@ -16,11 +16,26 @@ colors = [(240,248,255),(255,211,155),(0,255,255),(178,34,34),(255,255,224),(255
 #sky
 bgcolor(000,000,255)
 
+=======
+colors = [(144, 170, 6),(162, 163, 3),(212, 103, 25),(218, 120, 27)]
+bgcolor(000,000,255)
+
+#create other turtles
+cld = Turtle()
+sun = Turtle()
+grs = Turtle()
+
+speed(0)
+cld.speed(0)
+sun.speed(0)
+grs.speed(0)
+
+
+>>>>>>> 79afc8de8e60752d78d4c211883d8dee78299422
 #functions
 def draw_tree(leaves):
     penup()
-    sety(-150)
-    setx(random.randrange(-800,800))
+    goto(random.randrange(-650,650),random.randrange(-175,-150))
     setheading(90)
 
     #trunk
@@ -60,20 +75,53 @@ def make_forest():
         count += 1
     draw_sun()
     
+def draw_grass():
+    grs.penup()
+    grs.goto(random.randrange(-650,650),random.randrange(-300,-160))
+    grs.pendown()
+    grs.color("green")
+             
+    x = 0
+    for i in range(5):
+        grs.setheading(15 + x)
+        grs.fd(15)
+        grs.rt(180)
+        grs.fd(15)
+        x += 30
+             
+def make_forest():
+    count = 0
+    while count < 5:
+        for i in range(5):
+            draw_tree(colors[random.randrange(0,3)])
+            draw_grass()
+            draw_grass()
+            
+        count += 1
+    draw_sun()
+    
 def draw_ground():
+<<<<<<< HEAD
     color(0,123,12)
+=======
+    color(77, 158, 58)
+>>>>>>> 79afc8de8e60752d78d4c211883d8dee78299422
     penup()
     sety(-150)
     setx(700)
     setheading(180)
     pendown()
     begin_fill()
+<<<<<<< HEAD
     
     fd(1400)
+=======
+    fd(2000)
+>>>>>>> 79afc8de8e60752d78d4c211883d8dee78299422
     rt(-90)
     fd(400)
     rt(-90)
-    fd(1400)
+    fd(2300)
     rt(-90)
     fd(400)
     
@@ -85,15 +133,37 @@ def draw_sun():
     sun.pendown()
     sun.begin_fill()
 
+<<<<<<< HEAD
     #if night,draw moon
     #if day,draw sun
+=======
+    #draws a moon if its night
+    #draws a sun if its day
+>>>>>>> 79afc8de8e60752d78d4c211883d8dee78299422
     if bgcolor() == (00,00,00):
         sun.color(254, 252, 215)
     else:
         sun.color(240,242,90)
+<<<<<<< HEAD
         
+=======
+>>>>>>> 79afc8de8e60752d78d4c211883d8dee78299422
     sun.circle(75)
     sun.end_fill()
+
+def draw_cloud():
+    cld.penup()
+    cld.color(255,255,255)
+    cld.goto(random.randrange(-700,700),random.randrange(0,300))
+    size = 15
+    
+    for i in range(5):
+        cld.pendown()
+        cld.begin_fill()
+        cld.circle(size)
+        cld.rt(72)
+        cld.end_fill()
+        size += 2.5
 
 def change_sky(x,y):
     if y > -150:
@@ -103,6 +173,7 @@ def change_sky(x,y):
             bgcolor(00,00,00)
     draw_sun()
 
+<<<<<<< HEAD
 def draw_cloud():
     cld.penup()
     cld.color(255,255,255)
@@ -124,6 +195,14 @@ make_forest()
 
 onscreenclick(change_sky)
 onkey(draw_cloud,"Up")
+=======
+#draw picture
+draw_ground()
+make_forest()
+
+onkey(draw_cloud,"Up")
+onscreenclick(change_sky)
+>>>>>>> 79afc8de8e60752d78d4c211883d8dee78299422
 
 listen()
 mainloop()
